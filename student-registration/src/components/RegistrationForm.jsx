@@ -40,7 +40,7 @@ function RegistrationForm() {
           setError(""); 
         }
      // use post method to link with the backend
-      const URL = "/submit";
+      const URL = "https://student-registartion-fullstack-web-site.onrender.com/submit";
       const postMethodObject =  {
         method: "POST",
         headers: {"Content-Type": "application/json"},
