@@ -1,0 +1,118 @@
+.registration-form-container {
+  background-color: white;
+  width: 100%;
+  max-width: 450px;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 128, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.registration-form-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 128, 0, 0.15);
+}
+
+.registration-form-container h2 {
+  text-align: center;
+  color: #3bb77e;
+  margin-bottom: 20px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 500;
+}
+
+form input {
+  width: 95%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+}
+form select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+}
+
+form input:focus,
+form select:focus {
+  outline: none;
+  border-color: #3bb77e;
+  box-shadow: 0 0 4px rgba(59, 183, 126, 0.4);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #3bb77e;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: hsl(152, 82%, 39%);
+  border-radius: 20px;
+}
+
+.success-message {
+  text-align: center;
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  animation: fadeIn 0.6s ease-in;
+}
+
+/*start of spinner */
+.spinner{
+  border: 0.3rem solid hsl(152, 82%, 39%); 
+  border-top: 0.3rem solid white;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  animation: spin 1s linear infinite; 
+  margin: 12px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* end of spinner effect*/
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .registration-form-container {
+    padding: 20px;
+  }
+
+  .registration-form-container h2 {
+    font-size: 1.5rem;
+  }
+}
