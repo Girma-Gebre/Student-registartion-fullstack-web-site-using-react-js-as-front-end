@@ -30,7 +30,7 @@ async function resetCounterIfEmpty() {
   if (count === 0) {
     // Reset the counter for "UserId"
     await mongoose.connection.collection("_counters").updateOne( // _counters default mongoose can know
-      { _id: "studentregisters_StudentId" }, // <-- must match collection name + field exactly
+      { _id: `${student.collection.name}_StudentId` }, // <-- must match collection name + field exactly
       { $set: { seq: 0 } },
       { upsert: true } // insert if it is not exist update if it is exixt
     );
@@ -69,7 +69,7 @@ router.post("/submit", async (req,res)=>{
 
       }
        }
-       
+
         await resetCounterIfEmpty() //calling the function to reset the "UserId"
       // create an instance object template from class and insert data from client e.g: req.body
         const newStudent = new student({fullName: fullNameNoExtraSpace, phone, email, course}); // creating object from class

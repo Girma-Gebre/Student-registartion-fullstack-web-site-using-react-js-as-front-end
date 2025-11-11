@@ -30,17 +30,7 @@ function RegistrationForm() {
     setMessage({Msg: "", backgroundColor: "", color: "", display: "none"}); // making the message content empty when re-register
     setSpinner("block") // show spinner
    
-    // use post method to link with the backend
        try {
-      const URL = "https://student-registartion-fullstack-web-site.onrender.com/submit";
-      const postMethodObject =  {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(formData)  // making the data sitring 
-      };
-      const send = await fetch(URL,postMethodObject)
-      const data = await send.json();
-
       const phonePattern = /^09\d{8}$/; // regex number must start with 09 and 8 digit after
      // checking phone number validation
       if (!phonePattern.test(formData.phone)) {
@@ -49,11 +39,21 @@ function RegistrationForm() {
         }else{
           setError(""); 
         }
+     // use post method to link with the backend
+      const URL = "/submit";
+      const postMethodObject =  {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(formData)  // making the data sitring 
+      };
+        // post the data begin
+      const send = await fetch(URL,postMethodObject)
+      const data = await send.json();
 
       if(data.Msg === "You are registered successfully"){
         setMessage({Msg: data.Msg, backgroundColor: "#a1e6b0ff", color: "#0bbe38ff", display: "block"});
 
-        // reset the input
+      // reset the input
       setFormData({
          fullName: "",
          email: "",
@@ -124,6 +124,10 @@ function RegistrationForm() {
             <option value="Front-end Web Development">Front-end Web Development</option>
             <option value="Back-end Web development">Back-end Web development</option>
             <option value="Full-stack Web Development">Full-stack Web Development</option>
+            <option value="Data Enginner">Data Enginner</option>
+            <option value="Data Syntist">Data Syntist</option>
+            <option value="Machine Learning">Machine Learning</option>
+            <option value="AI Analyst">AI Analyst</option>
           </select>
         </label>
 
