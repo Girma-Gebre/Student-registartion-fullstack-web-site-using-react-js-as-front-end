@@ -39,9 +39,9 @@ async function resetCounterIfEmpty() {
 
 router.post("/submit", async (req,res)=>{
     try{
-    const fullNameNoExtraSpace = req.body.fullName.replace(/\s+/g, " ").trim(); //avoiding extra space from name from client/frontend  
+    const fullNameNoExtraSpace = req.body.fullName.trim().replace(/\s+/g, " ") //avoiding extra space from name from client/frontend  
     const {phone, email, course} = req.body;
-    const existData = await student.findOne({$or: [{fullName:fullNameNoExtraSpace}, {email}, {phone}, {course}]});
+    const existData = await student.findOne({$or: [{fullName:{$regex: `$^{fullNameNoExtraSpace}$`, $options: "i"}}, {email}, {phone}, {course}]});
 
     //check fullname, phone number and email are already exist first
       if(existData){
