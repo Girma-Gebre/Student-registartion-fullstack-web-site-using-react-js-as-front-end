@@ -4,7 +4,7 @@ const express = require('express');
 const postRouter = require('./crude operation/router-post');
 const path = require("path")
 const APP = express();
-APP.use(express.static(path.join(__dirname, "../student-registration/build"))); // keeping files in the public folder
+APP.use(express.static(path.join(__dirname, "../student-registration/build"))); // keeping files in the public folder 
 const port = 2000
 APP.use(cors())
 // APP.use(express.static); // keeping files in the public folder for local
