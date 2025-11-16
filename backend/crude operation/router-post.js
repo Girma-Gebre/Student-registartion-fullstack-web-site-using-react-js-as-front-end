@@ -29,7 +29,7 @@ async function resetCounterIfEmpty() {
   const count = await student.countDocuments(); // this shows the value of seq in counters collection in mongodb, it indicates the heighest "UserId" or the number of documents in the "studentregisters" collection in mongoDB database
   if (count === 0) {
     // Reset the counter for "UserId"
-    await mongoose.connection.collection("_counters").updateOne( // _counters default mongoose can know
+    await mongoose.connection.collection("counters").updateOne( // _counters default mongoose can know
       { _id: `${student.collection.name}_StudentId` }, // <-- must match collection name + field exactly
       { $set: { seq: 0 } },
       { upsert: true } // insert if it is not exist update if it is exixt
