@@ -41,35 +41,32 @@ router.post("/submit", async (req,res)=>{
     try{
     const fullNameNoExtraSpace = req.body.fullName.trim().replace(/\s+/g, " ") //avoiding extra space from name from client/frontend  
     const {phone, email, course} = req.body;
-    const existData = await student.findOne({$or: [{fullName:{$regex: `$^{fullNameNoExtraSpace}$`, $options: "i"}}, {email}, {phone}, {course}]});
+    const existData = await student.findOne({$or: [{fullName:{$regex: `^${fullNameNoExtraSpace}$`, $options: "i"}}, {email}, {phone}]});
 
     //check fullname, phone number and email are already exist first
       if(existData){
-        if(existData.fullName.toLowerCase()===fullNameNoExtraSpace.toLowerCase() && existData.phone === phone && existData.email === email){
-       return res.json({Msg: "Your fullname, phone number and email you entered already exist!"})
+       const sameName = existData.fullName.toLowerCase() === fullNameNoExtraSpace.toLowerCase();
+       const samePhone = existData.phone === phone;
+       const sameEmail = existData.email === email;
 
-        } else if(existData.fullName.toLowerCase()===fullNameNoExtraSpace.toLowerCase() && existData.phone === phone){
+        if(sameName && samePhone && sameEmail){
+          return res.json({Msg: "Your fullname, phone number and email you entered already exist!"})
+        } else if(sameName && samePhone){
            return res.json({Msg: "Your fullname and phone number you entered already exist!"})
-
-        } else if(existData.fullName.toLowerCase()===fullNameNoExtraSpace.toLowerCase() && existData.email === email){
+        } else if(sameName && sameEmail){
           return res.json({Msg: "Your fullname and email you entered already exist!"})
-
-        } else if(existData.phone === phone && existData.email === email){
+        } else if(samePhone && sameEmail){
             return res.json({Msg: "Your phone number and email you entered already exist!"})
-
-        } else if(existData.fullName.toLowerCase()===fullNameNoExtraSpace.toLowerCase()){
-           return res.json({Msg: "The fullname you entered already exists!"
-        })
-
-      } else if(existData.phone === phone){
-      return res.json({Msg: "The phone number you entered already exists!"})
-
-      } else if(existData.email === email){
-       return res.json({Msg: "The email you entered already exists!"})
-
+        } else if(sameName){
+           return res.json({Msg: "The fullname you entered already exists!"})
+        } else if(samePhone){
+          return res.json({Msg: "The phone number you entered already exists!"})
+        } else if(sameEmail){
+          return res.json({Msg: "The email you entered already exists!"})
+        }
       }
-       }
-
+    
+       // Reset counter (only when no data exist)
         await resetCounterIfEmpty() //calling the function to reset the "UserId"
       // create an instance object template from class and insert data from client e.g: req.body
         const newStudent = new student({fullName: fullNameNoExtraSpace, phone, email, course}); // creating object from class
